@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datetest.userprofile.mappers.AccountMapper">
+
+    <!-- Using ResultMap -->
+    <resultMap id="accountResult" type="Account">
+        <result property="uuid" column="uuid"/>
+        <result property="username" column="username"/>
+        <result property="loginType" column="login_type"/>
+        <result property="isActive" column="is_active"/>
+        <result property="isEnabled" column="is_enabled"/>
+    </resultMap>
+
+    <insert id="addAccount">
+        insert into accounts_table (uuid, username, login_type) values(#{uuid}, #{username}, #{loginType})
+    </insert>
+
+    <select id="getAccount" resultMap="accountResult">
+        select * from accounts_table where uuid = #{uuid};
+    </select>
+
+    <update id="deleteAccount">
+        update accounts_table set
+          is_deleted=true
+        where uuid = #{uuid}
+    </update>
+
+</mapper>

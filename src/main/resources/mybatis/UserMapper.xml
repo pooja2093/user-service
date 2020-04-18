@@ -1,0 +1,45 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datetest.userprofile.mappers.UserMapper">
+
+    <resultMap type='User' id='UserResult'>
+        <id property='uuid' column='uuid'/>
+        <result property='name' column='name'/>
+        <result property='interest' column='interest'/>
+        <result property='gender' column='gender'/>
+        <result property='uuid' column='uuid'/>
+        <result property='minRange' column='min_range'/>
+        <result property='maxRange' column='max_range'/>
+        <result property='dob' column='dob'/>
+        <result property='location' column='location'/>
+        <result property='status' column='status'/>
+    </resultMap>
+
+    <insert id="addUser" >
+        insert into users_table (user_id, uuid, name, gender, interest, location, status, dob, min_range, max_range)
+        values(#{userId}, #{user.uuid}, #{user.name}, #{user.gender}, #{user.interest}, #{user.location}, #{user.status},
+        #{user.dob}, #{user.minRange}, #{user.maxRange})
+    </insert>
+
+    <select id="getUser" resultMap="UserResult">
+        select * from users_table where uuid = #{uuid}
+    </select>
+
+    <select id="getUser1" resultType="java.util.HashMap">
+        select * from users_table where uuid = #{uuid}
+    </select>
+
+    <update id="updateUser">
+        update users_table set
+          name = #{user.name},
+          gender = #{user.gender},
+          interest = #{user.interest},
+          location = #{user.location},
+          status = #{user.status},
+          dob = #{user.dob},
+          min_range = #{user.minRange},
+          max_range = #{user.maxRange}
+        where uuid = #{uuid}
+    </update>
+</mapper>
